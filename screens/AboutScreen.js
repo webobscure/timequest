@@ -6,7 +6,7 @@ export default function AboutScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headerAbout}>
-            <TouchableOpacity onPress={navigation.navigate("Support page")}>
+            <TouchableOpacity >
                 <Image source={require("../assets/backButton.png")} style={styles.backButton}/>
             </TouchableOpacity>
             <Text style={styles.text}>О приложении</Text>
