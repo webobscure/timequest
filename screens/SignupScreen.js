@@ -33,7 +33,7 @@ const SignupScreen = ({ navigation }) => {
       <View style={styles.reg_block}>
         <View style={styles.reg_input}>
           <Text style={styles.input_label}>E-mail</Text>
-          <TextInput value={email} onChangeText={(text) => setEmail(text)} inputMode="email" placeholder="name@mail.com" />
+          <TextInput value={email} autoCapitalize="none" onChangeText={(text) => setEmail(text)} inputMode="email" placeholder="name@mail.com" />
         </View>
         <View style={styles.reg_input}>
           <Text style={styles.input_label}>Пароль</Text>
@@ -41,6 +41,7 @@ const SignupScreen = ({ navigation }) => {
             value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
+            autoCapitalize="none"
           />
         </View>
         <View style={styles.reg_input}>
@@ -48,7 +49,10 @@ const SignupScreen = ({ navigation }) => {
           <TextInput 
           value={passwordLoop}
           onChangeText={(text) => setPasswordLoop(text)}
-          secureTextEntry={true}/>
+          secureTextEntry={true}
+          autoCapitalize="none"
+          />
+          
         </View>
         
         {loading ? <ActivityIndicator size="large" color="#0000ff" />

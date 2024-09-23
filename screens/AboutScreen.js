@@ -25,10 +25,10 @@ export default function AboutScreen({ navigation }) {
                 <Text style={styles.aboutPage_text}>
 Наше приложение помагает детям изучать
 историю и прививает любовь к историческому
-миру</Text>
+миру.</Text>
                 <Text style={styles.aboutPage_text}>
 Мы супер пупер команда энтузиастов,
-которые хотят помочь вам познать исторический мир</Text>
+которые хотят помочь вам познать исторический мир.</Text>
             </View>
         <Navbar />
 

@@ -34,13 +34,14 @@ const LoginScreen = ({navigation}) => {
         
         <View style={styles.reg_input}>
         <Text style={styles.input_label} >Email</Text>
-        <TextInput value={email} onChangeText={(text) => setEmail(text)} />
+        <TextInput value={email} style={styles.text_input} autoCapitalize="none" onChangeText={(text) => setEmail(text)} />
         </View>
         <View style={styles.reg_input}>
         <Text style={styles.input_label} >Пароль</Text>
         <TextInput value={password}
             onChangeText={(text) => setPassword(text)}
-            secureTextEntry={true} />
+            secureTextEntry={true}
+            autoCapitalize="none" style={styles.text_input} />
         <View style={styles.forgotPassword_container}>
           <Text style={styles.gray_text}>Восстановить пароль</Text>
         </View>
@@ -121,6 +122,11 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       position: 'relative',
       top: 250
+    },
+    text_input: {
+      position: 'relative',
+      left: 10,
+      bottom: 5
     }
 })
 
