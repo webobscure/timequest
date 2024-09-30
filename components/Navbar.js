@@ -24,61 +24,75 @@ export default function Navbar() {
       case "profile":
         navigation.navigate("Profile page");
         break;
+      case "rat":
+        navigation.navigate("Tournament page");
+        break;
     }
   };
   return (
     <>
       <View style={styles.bottom_panel}>
-        <View style={styles.panelItem}>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => handlePress("home")}
-          >
-            <Image
-              source={require("../assets/home.png")}
-              style={styles.bottom_pannel__image}
-            />
-            <Text style={styles.text}>Главная</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.panelItem}>
-        <TouchableOpacity
-            style={styles.button}
-            onPress={() => handlePress("event")}
-          >
-            <Image
-              source={require("../assets/event.png")}
-              style={styles.bottom_pannel__image}
-            />
-            <Text style={styles.text}>События</Text>
-          </TouchableOpacity>
-          
-        </View>
-        <View style={styles.panelItem}>
-        <TouchableOpacity
-            style={styles.button}
-            onPress={() => handlePress("fav")}
-          >
-            <Image
-              source={require("../assets/save.png")}
-              style={styles.bottom_pannel__image}
-            />
-            <Text style={styles.text}>Избранное</Text>
-          </TouchableOpacity>
-         
-        </View>
-        <View style={styles.panelItem}>
-        <TouchableOpacity
-            style={styles.button}
-            onPress={() => handlePress("profile")}
-          >
-            <Image
-              source={require("../assets/profile.png")}
-              style={styles.bottom_pannel__image}
-            />
-            <Text style={styles.text}>Профиль</Text>
-          </TouchableOpacity>
-          
+        <View style={styles.panel}>
+          <View style={styles.panelItem}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePress("home")}
+            >
+              <Image
+                source={require("../assets/home.png")}
+                style={styles.bottom_pannel__image}
+              />
+              <Text style={styles.text}>Главная</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.panelItem}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePress("event")}
+            >
+              <Image
+                source={require("../assets/event.png")}
+                style={styles.bottom_pannel__image}
+              />
+              <Text style={styles.text}>События</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.panelItem}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePress("rat")}
+            >
+              <Image
+                source={require("../assets/rating.png")}
+                style={styles.bottom_pannel__image}
+              />
+              <Text style={styles.text}>Рейтинг</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.panelItem}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePress("fav")}
+            >
+              <Image
+                source={require("../assets/save.png")}
+                style={styles.bottom_pannel__image}
+              />
+              <Text style={styles.text}>Избранное</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.panelItem}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => handlePress("profile")}
+            >
+              <Image
+                source={require("../assets/profile.png")}
+                style={styles.bottom_pannel__image}
+              />
+              <Text style={styles.text}>Профиль</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     </>
@@ -89,15 +103,22 @@ const styles = StyleSheet.create({
   bottom_panel: {
     backgroundColor: "#222",
     position: "absolute",
-    width: 386,
+    width: 430,
     height: 66,
     bottom: 40,
-    left: 25,
-    borderRadius: 40,
+    borderRadius: 15,
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
+  },
+  panel: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "row",
+    marginTop: 30,
+    gap: 10,
   },
   panelItem: {
     display: "flex",
@@ -114,7 +135,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: "#B4B4B4",
-    fontSize: 17,
+    fontSize: 12,
   },
   image: {
     width: 20,

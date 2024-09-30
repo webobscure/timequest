@@ -13,6 +13,7 @@ import FavoriteScreen from "../screens/FavoriteScreen";
 import SettingScreen from "../screens/SettingScreen";
 import AboutScreen from "../screens/AboutScreen";
 import SupportScreen from "../screens/SupportScreen";
+import TournamentScreen from "../screens/TournamentScreen"
 
 const Stack = createNativeStackNavigator();
 
@@ -78,6 +79,11 @@ export default function AppNavigation() {
           name="Favorite page"
           options={{ headerShown: false }}
           component={FavoriteScreen}
+        />
+        <Stack.Screen
+          name="Tournament page"
+          options={{ headerShown: false }}
+          component={TournamentScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
