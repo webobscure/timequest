@@ -11,17 +11,17 @@ const LoginScreen = ({navigation}) => {
   const signIn = async () => {
     
     setLoading(true);
-    try {
+    // try {
       
-      const response =  await signInWithEmailAndPassword(auth,email,password);
-      console.log(response)
-      navigation.navigate('Home page')
-    } catch(err) {
-      console.error(err);
-      alert('Registration failed:' + err.message)
-    } finally {
-      setLoading(false);
-    }
+    //   const response =  await signInWithEmailAndPassword(auth,email,password);
+    //   console.log(response)
+    //   navigation.navigate('Home page')
+    // } catch(err) {
+    //   console.error(err);
+    //   alert('Registration failed:' + err.message)
+    // } finally {
+    //   setLoading(false);
+    // }
     
     navigation.navigate('Home page')
   }

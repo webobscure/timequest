@@ -1,6 +1,6 @@
 
 import {React} from "react";
-import { View, Image, Button, StyleSheet } from "react-native";
+import { View, Image, Button, StyleSheet, Text } from "react-native";
 import avatar from "../assets/avatar.png";
 
  export default function Header() {
@@ -8,8 +8,17 @@ import avatar from "../assets/avatar.png";
     return (
         <>
         <View style={styles.header_panel}>
+            <View style={styles.userBlock}>
             <Image source={avatar} style={styles.image_avatar} />
-
+            <Text style={styles.text}>Артём</Text>
+            </View>
+            <View style={styles.heartBlock}>
+            <Image
+              source={require("../assets/fire.png")}
+              style={styles.fire_img}
+            />
+            <Text style={styles.text}>0</Text>
+            </View>
             <Image
               source={require("../assets/heart.png")}
               style={styles.heart_img}
@@ -33,12 +42,28 @@ const styles = StyleSheet.create({
         alignItems: "center",
       },
       image_avatar: {
-        height: 56,
-        width: 56,
+        height: 35,
+        width: 35,
         position: "relative",
         left: 10,
       },
-      heart_img: {
-        left: 80,
+      
+      text: {
+        fontSize: 16,
+        color: "#FFF"
+      },
+      heartBlock: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 10
+      },
+      userBlock: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        gap: 20
       }
 })

@@ -5,6 +5,7 @@ import {
   Image,
   TouchableOpacity,
   ScrollView,
+  FlatList,
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -13,11 +14,11 @@ import Navbar from "../components/Navbar";
 import { collection, getDocs } from "firebase/firestore";
 import Header from "../components/Header";
 
-
 export default function HomeScreen({ navigation }) {
   const [user, setUser] = useState();
   const [exersice, setExersice] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
+
   // Функция для получения данных из Firestore
   const fetchData = async () => {
     try {
@@ -26,46 +27,69 @@ export default function HomeScreen({ navigation }) {
         id: doc.id,
         ...doc.data(),
       }));
-      // console.log("Данные: ", data);
-      setExersice(data)
+      console.log("Данные: ", data);
+      setExersice(data);
     } catch (error) {
       console.error("Ошибка получения данных: ", error);
     }
   };
   useEffect(() => {
     onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      console.log(user);
       setUser(user);
-
     });
 
     fetchData();
   }, []);
   return (
     <>
-      {user ? (
-        <View style={styles.black_container} class="h-full">
-          <Header/>
+      {/* {user ? ( */}
+      <View style={styles.black_container} class="h-full">
+        <ScrollView style={styles.scrollView}>
+          <Header />
           <View style={styles.content_container}>
+            <View style={styles.universe_block}>
+              <Image
+                source={require("../assets/universe.png")}
+                style={styles.universe_image}
+              />
+              <View style={styles.exBlock}>
+                <Text style={{ color: "#FFF", fontSize: 18 }}>
+                  Астрономия, алхимия и медицина
+                </Text>
+                <Text style={{ color: "#CFCFCF", width: 350 }}>
+                  Три древние дисциплины, которые играли важную роль в развитии
+                  научных знаний....
+                </Text>
+              </View>
+
+              <View style={styles.actionBlock}>
+                <TouchableOpacity style={styles.openButton}>
+                  <Text style={{ color: "#000" }}>Подробнее</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.saveBlock}>
+                  <Image
+                    source={require("../assets/save.png")}
+                    style={styles.saveIcon}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
             <View style={styles.bronze_century}>
               <Text style={styles.century_title}>Бронзовый Век</Text>
-              <TouchableOpacity style={styles.oneRow} >
-                <ScrollView horizontal={true}>
-                {exersice ? exersice.map((data)=> (
-                  <Image
-                  key={data.id}
-                  source={{
-                    uri: data.background
-                  }}
-                  style={styles.contentImage}
-                />
-                )) : 
-                <>
-               <Text>Not found exercises!</Text>
-                </>}
+              <TouchableOpacity style={{
+              }}>
+                <ScrollView horizontal={true} style={{ flex: 1 }}>
+                  <FlatList
+                    data={exersice}
+                    keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
+                    renderItem={({ item }) => (
+                      <Image
+                        source={{ uri: item.background }} // Используем URL из Firebase
+                        style={styles.contentImage}
+                      />
+                    )}
+                  />
                 </ScrollView>
-               
-                
               </TouchableOpacity>
             </View>
             <View style={styles.silver_century}>
@@ -103,20 +127,26 @@ export default function HomeScreen({ navigation }) {
               </TouchableOpacity>
             </View>
           </View>
-          <Navbar />
-        </View>
-      ) : (
+        </ScrollView>
+      </View>
+      <Navbar />
+
+      {/* ) : (
         <Text>Hello</Text>
-      )}
+      )} */}
     </>
   );
 }
 
 const styles = StyleSheet.create({
+  scrollView: {
+    flex: 1,
+  },
   black_container: {
     backgroundColor: "#000",
     width: "100%",
     height: "100%",
+    position: "relative",
   },
 
   century_title: {
@@ -135,16 +165,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
-  header_panel: {
-    width: "100%",
-    height: 56,
-    position: "absolute",
-    top: 60,
-    display: "flex",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
+ 
   image_avatar: {
     height: 56,
     width: 56,
@@ -152,7 +173,7 @@ const styles = StyleSheet.create({
     left: 10,
   },
   bronze_century: {
-    marginTop: 50,
+    marginTop: 80,
   },
   silver_century: {
     marginTop: 30,
@@ -165,7 +186,7 @@ const styles = StyleSheet.create({
     width: 243,
     height: 170,
     marginRight: 10,
-    borderRadius: 10
+    borderRadius: 10,
   },
   bottom_pannel__image: {
     width: 15,
@@ -173,5 +194,53 @@ const styles = StyleSheet.create({
   },
   heart_img: {
     left: 80,
+  },
+  universe_block: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: 5,
+    position: "relative",
+    top: 140,
+  },
+  universe_image: {
+    width: 400,
+  },
+  saveIcon: {
+    width: 12,
+    height: 14,
+  },
+  saveBlock: {
+    backgroundColor: "#1A1A1A",
+    borderRadius: 20,
+    position: "relative",
+    width: 26,
+    height: 26,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  openButton: {
+    width: 276,
+    height: 26,
+    backgroundColor: "#EC704B",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  exBlock: {
+    position: "relative",
+    display: "block",
+    bottom: 120,
+    gap: 15,
+    left: 10,
+  },
+  actionBlock: {
+    position: "relative",
+    display: "flex",
+    flexDirection: "row",
+    bottom: 110,
+    gap: 30,
   },
 });

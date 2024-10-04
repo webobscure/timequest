@@ -103,9 +103,9 @@ const styles = StyleSheet.create({
   bottom_panel: {
     backgroundColor: "#222",
     position: "absolute",
-    width: 430,
-    height: 66,
-    bottom: 40,
+    width: 450,
+    height: 86,
+    bottom: 0,
     borderRadius: 15,
     display: "flex",
     justifyContent: "center",
@@ -117,8 +117,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "row",
-    marginTop: 30,
-    gap: 10,
+    marginBottom: 20,
+    gap: 5,
   },
   panelItem: {
     display: "flex",
