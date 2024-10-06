@@ -34,16 +34,16 @@ export default function HomeScreen({ navigation }) {
     }
   };
   useEffect(() => {
-    onAuthStateChanged(FIREBASE_AUTH, (user) => {
-      setUser(user);
-    });
+    // onAuthStateChanged(FIREBASE_AUTH, (user) => {
+    //   setUser(user);
+    // });
 
     fetchData();
   }, []);
   return (
     <>
       {/* {user ? ( */}
-      <View style={styles.black_container} class="h-full">
+      <View style={styles.black_container}>
         <ScrollView style={styles.scrollView}>
           <Header />
           <View style={styles.content_container}>
@@ -76,59 +76,65 @@ export default function HomeScreen({ navigation }) {
             </View>
             <View style={styles.bronze_century}>
               <Text style={styles.century_title}>Бронзовый Век</Text>
-              <TouchableOpacity style={{
-              }}>
-                <ScrollView horizontal={true} style={{ flex: 1 }}>
-                  <FlatList
-                    data={exersice}
-                    keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
-                    renderItem={({ item }) => (
-                      <Image
-                        source={{ uri: item.background }} // Используем URL из Firebase
-                        style={styles.contentImage}
-                      />
-                    )}
-                  />
-                </ScrollView>
-              </TouchableOpacity>
+              <FlatList
+                data={exersice}
+                keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
+                renderItem={({ item }) => (
+                  <TouchableOpacity>
+                    <Image
+                      source={{ uri: item.background }} // Используем URL из Firebase
+                      style={styles.contentImage} // Стили для изображения
+                    />
+                  </TouchableOpacity>
+                )}
+                horizontal={true} // Горизонтальная прокрутка
+                showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
+                style={styles.renderBlock} // Стили для контейнера
+                contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
+              />
             </View>
-            <View style={styles.silver_century}>
-              <Text style={styles.century_title}>Серебрянный Век</Text>
-              <TouchableOpacity style={styles.oneRow} horizontal={true}>
-                <Image
-                  source={require("../assets/content.png")}
-                  style={styles.contentImage}
-                />
-                <Image
-                  source={require("../assets/contentTwo.png")}
-                  style={styles.contentImage}
-                />
-                <Image
-                  source={require("../assets/contentThree.png")}
-                  style={styles.contentImage}
-                />
-              </TouchableOpacity>
+            <View style={styles.bronze_century}>
+              <Text style={styles.century_title}>Cеребрянный Век</Text>
+              <FlatList
+                data={exersice}
+                keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
+                renderItem={({ item }) => (
+                  <TouchableOpacity>
+                    <Image
+                      source={{ uri: item.background }} // Используем URL из Firebase
+                      style={styles.contentImage} // Стили для изображения
+                    />
+                  </TouchableOpacity>
+                )}
+                horizontal={true} // Горизонтальная прокрутка
+                showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
+                style={styles.renderBlock} // Стили для контейнера
+                contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
+              />
             </View>
-            <View style={styles.gold_century}>
+            <View style={styles.bronze_century}>
               <Text style={styles.century_title}>Золотой Век</Text>
-              <TouchableOpacity style={styles.oneRow} horizontal={true}>
-                <Image
-                  source={require("../assets/contentThree.png")}
-                  style={styles.contentImage}
-                />
-                <Image
-                  source={require("../assets/contentThree.png")}
-                  style={styles.contentImage}
-                />
-                <Image
-                  source={require("../assets/contentTwo.png")}
-                  style={styles.contentImage}
-                />
-              </TouchableOpacity>
+              <FlatList
+                data={exersice}
+                keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
+                renderItem={({ item }) => (
+                  <TouchableOpacity>
+                    <Image
+                      source={{ uri: item.background }} // Используем URL из Firebase
+                      style={styles.contentImage} // Стили для изображения
+                    />
+                  </TouchableOpacity>
+                )}
+                horizontal={true} // Горизонтальная прокрутка
+                showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
+                style={styles.renderBlock} // Стили для контейнера
+                contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
+              />
             </View>
           </View>
         </ScrollView>
       </View>
+
       <Navbar />
 
       {/* ) : (
@@ -165,7 +171,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     gap: 10,
   },
- 
+
   image_avatar: {
     height: 56,
     width: 56,
@@ -173,7 +179,8 @@ const styles = StyleSheet.create({
     left: 10,
   },
   bronze_century: {
-    marginTop: 80,
+    marginTop: 30,
+    width: 500,
   },
   silver_century: {
     marginTop: 30,
@@ -199,12 +206,12 @@ const styles = StyleSheet.create({
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 5,
     position: "relative",
-    top: 140,
+    top: 120,
   },
   universe_image: {
     width: 400,
+    height: 300,
   },
   saveIcon: {
     width: 12,
@@ -242,5 +249,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     bottom: 110,
     gap: 30,
+  },
+
+  touchable: {
+    // Устанавливаем размеры для TouchableOpacity
+    width: "100%", // или фиксированная ширина
+    height: 200, // или нужная высота
+  },
+  renderBlock: {
+    // Добавьте дополнительные стили, если необходимо
+    flexGrow: 0, // Убираем автоматическое расширение
   },
 });
