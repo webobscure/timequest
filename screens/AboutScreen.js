@@ -6,7 +6,7 @@ export default function AboutScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headerAbout}>
-            <TouchableOpacity >
+            <TouchableOpacity  onPress={() => navigation.navigate("Profile page")}>
                 <Image source={require("../assets/backButton.png")} style={styles.backButton}/>
             </TouchableOpacity>
             <Text style={styles.text}>О приложении</Text>
@@ -76,13 +76,14 @@ const styles = StyleSheet.create({
     app: {
         fontSize: 24,
         color: '#FFF',
-        margin: 10
+        margin: 10,
+        fontWeight: "600"
     },
     aboutPage_text: {
         fontSize: 18,
         color: '#FFF',
         position: 'relative',
-        top: 90,
+        top: 20,
         marginTop: 50
         
     }

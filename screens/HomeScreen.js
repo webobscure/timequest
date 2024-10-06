@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   ScrollView,
   FlatList,
+  useColorScheme,
 } from "react-native";
 import React, { Component, useEffect, useState } from "react";
 import { onAuthStateChanged } from "firebase/auth";
@@ -15,6 +16,8 @@ import { collection, getDocs } from "firebase/firestore";
 import Header from "../components/Header";
 
 export default function HomeScreen({ navigation }) {
+  const scheme = useColorScheme();
+  const [isDarkTheme, setIsDarkTheme] = useState(scheme === 'dark')
   const [user, setUser] = useState();
   const [exersice, setExersice] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
@@ -37,9 +40,10 @@ export default function HomeScreen({ navigation }) {
     // onAuthStateChanged(FIREBASE_AUTH, (user) => {
     //   setUser(user);
     // });
-
     fetchData();
-  }, []);
+  }, [scheme]);
+
+  
   return (
     <>
       {/* {user ? ( */}

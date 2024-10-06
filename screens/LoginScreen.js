@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     signUp_container: {
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
+      alignItems: 'center', 
       position: 'relative',
       top: 250
     },

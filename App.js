@@ -1,27 +1,29 @@
-import { NavigationContainer } from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack'
-import IntroScreen from './screens/IntroScreen'
-import { LogBox } from 'react-native';
-import LoginScreen from './screens/LoginScreen';
-import SignupScreen from './screens/SignupScreen';
-import NavigationScreen from './screens/NavigationScreen';
-import HomeScreen from './screens/HomeScreen';
-import ProfileScreen from './screens/ProfileScreen';
-import EventScreen from './screens/EventScreen';
-import FavoriteScreen from './screens/FavoriteScreen';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import IntroScreen from "./screens/IntroScreen";
+import { LogBox } from "react-native";
+import LoginScreen from "./screens/LoginScreen";
+import SignupScreen from "./screens/SignupScreen";
+import NavigationScreen from "./screens/NavigationScreen";
+import HomeScreen from "./screens/HomeScreen";
+import ProfileScreen from "./screens/ProfileScreen";
+import EventScreen from "./screens/EventScreen";
+import FavoriteScreen from "./screens/FavoriteScreen";
 import SettingScreen from "./screens/SettingScreen";
 import AboutScreen from "./screens/AboutScreen";
 import SupportScreen from "./screens/SupportScreen";
-import TournamentScreen from "./screens/TournamentScreen"
+import TournamentScreen from "./screens/TournamentScreen";
+import SubscriptionScreen from "./screens/SubscriptionScreen";
+import PaymentScreen from "./screens/PaymentScreen";
 const Stack = createNativeStackNavigator();
 
 LogBox.ignoreLogs([
-  'Non-serializable values were found in the navigation state',
+  "Non-serializable values were found in the navigation state",
 ]);
 export default function App() {
   return (
     <NavigationContainer>
-   <Stack.Navigator>
+      <Stack.Navigator>
         <Stack.Screen
           name="Intro page"
           options={{ headerShown: false }}
@@ -49,7 +51,7 @@ export default function App() {
         />
         <Stack.Screen
           name="Profile page"
-          options={{ headerShown: false }} 
+          options={{ headerShown: false }}
           component={ProfileScreen}
         />
         <Stack.Screen
@@ -77,12 +79,22 @@ export default function App() {
           options={{ headerShown: false }}
           component={FavoriteScreen}
         />
-         <Stack.Screen
+        <Stack.Screen
           name="Tournament page"
           options={{ headerShown: false }}
           component={TournamentScreen}
         />
+        <Stack.Screen
+          name="Subscription page"
+          options={{ headerShown: false }}
+          component={SubscriptionScreen}
+        />
+         <Stack.Screen
+          name="Payment page"
+          options={{ headerShown: false }}
+          component={PaymentScreen}
+        />
       </Stack.Navigator>
-</NavigationContainer>
+    </NavigationContainer>
   );
 }
