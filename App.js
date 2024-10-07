@@ -15,6 +15,7 @@ import SupportScreen from "./screens/SupportScreen";
 import TournamentScreen from "./screens/TournamentScreen";
 import SubscriptionScreen from "./screens/SubscriptionScreen";
 import PaymentScreen from "./screens/PaymentScreen";
+import ThemeScreen from "./screens/ThemeScreen";
 const Stack = createNativeStackNavigator();
 
 LogBox.ignoreLogs([
@@ -93,6 +94,11 @@ export default function App() {
           name="Payment page"
           options={{ headerShown: false }}
           component={PaymentScreen}
+        />
+         <Stack.Screen
+          name="Theme page"
+          options={{ headerShown: false }}
+          component={ThemeScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

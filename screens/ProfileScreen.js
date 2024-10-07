@@ -144,7 +144,7 @@ export default function ProfileScreen({ navigation }) {
             <TouchableOpacity
               style={styles.profile_button}
               onPress={() =>
-                navigation.navigate("Tool page", { screen: "About page" })
+                navigation.navigate("Theme page", { screen: "Theme page" })
               }
             >
               <Text style={styles.profile_text}>Настройка приложения</Text>
