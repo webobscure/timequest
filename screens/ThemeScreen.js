@@ -5,16 +5,22 @@ import {
   Text,
   StyleSheet,
   Image,
-  TouchableOpacity, Modal, FlatList
+  TouchableOpacity, Modal, FlatList, Switch
 } from "react-native";
 import Navbar from "../components/Navbar";
+import { useTheme } from "../tools/ThemeProvider";
+import { getThemeStyles } from "../theme/themeStyles";
 
 export default function ThemeScreen({ navigation }) {
-    const [isVisible, setIsVisible] = useState(false);
-    const [selectedValue, setSelectedValue] = useState(null);
-    const options = ['Темная', 'Светлая'];
+  const [isLightThemeChecked, setLightThemeChecked] = useState(false);
+  const [isDarkThemeChecked, setDarkThemeChecked] = useState(false);
+  const [isSystemThemeChecked, setSystemThemeChecked] = useState(false);
+  const { isDarkTheme, setDarkTheme, setLightTheme, setSystemTheme } = useTheme();
+
+  const themeStyles = getThemeStyles(isDarkTheme);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: themeStyles.backgroundColor}]}>
       <View style={styles.headerAbout}>
         <TouchableOpacity onPress={() => navigation.navigate("Profile page")}>
           <Image
@@ -22,34 +28,49 @@ export default function ThemeScreen({ navigation }) {
             style={styles.backButton}
           />
         </TouchableOpacity>
-        <Text style={styles.text}>Управление подпиской</Text>
+        <Text style={[styles.text, {color: themeStyles.color}]}>Настройки приложения</Text>
       </View>
       
       <View style={styles.themeBlock}>
-      <Text style={styles.themeText}>Тема приложения</Text>
-      <TouchableOpacity onPress={() => setIsVisible(true)}>
-        <Text style={styles.themeText}>{selectedValue || 'Темная тема'}</Text>
-      </TouchableOpacity>
+       <View style={styles.themeBlock__item}>
+       <Image source={require("../assets/lightTheme.png")} />
+        <Text style={[styles.themeText, { color: themeStyles.color}]} >Светлая</Text>
+        <TouchableOpacity style={styles.checkbox} onPress={() => {
+          setLightThemeChecked(true);
+          setDarkThemeChecked(false);
+          setSystemThemeChecked(false);
+          setLightTheme();
+        }}>
+          <View style={isLightThemeChecked ? styles.checked : styles.unchecked}></View>
+        </TouchableOpacity>
+       </View>
+       <View style={styles.themeBlock__item}>
+       <Image source={require("../assets/darkTheme.png")} />
+        <Text style={[styles.themeText, { color: themeStyles.color}]} >Тёмная</Text>
+        <TouchableOpacity style={styles.checkbox} onPress={() => {
+          setDarkThemeChecked(true);
+          setLightThemeChecked(false);
+          setSystemThemeChecked(false);
+          setDarkTheme();
 
-      <Modal visible={isVisible} transparent={true} >
-        <View style={{ margin: 0, padding: 20, backgroundColor: '#fff', borderRadius: 10, top: 200 }}>
-          <FlatList
-            data={options}
-            keyExtractor={(item) => item}
-            renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => {
-                  setSelectedValue(item);
-                  setIsVisible(false);
-                }}
-              >
-                <Text style={styles.pickerText}>{item}</Text>
-              </TouchableOpacity>
-            )}
-          />
+        }}>
+          <View style={isDarkThemeChecked ? styles.checked : styles.unchecked}></View>
+        </TouchableOpacity>
+       </View>
+       <View style={styles.themeBlock__item}>
+       <Image source={require("../assets/systemTheme.png")} />
+        <Text style={[styles.themeText, { color: themeStyles.color}]} >Как в системе</Text>
+        <TouchableOpacity style={styles.checkbox} onPress={() => {
+          setSystemThemeChecked(!isSystemThemeChecked);
+          setLightThemeChecked(false);
+          setDarkThemeChecked(false);
+          setSystemTheme();
+        }}>
+          <View style={isSystemThemeChecked ? styles.checked : styles.unchecked}></View>
+        </TouchableOpacity>
+       </View>
+
         </View>
-      </Modal>
-      </View>
       
       <Navbar />
     </View>
@@ -61,8 +82,22 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#000",
   },
+  checkbox: {
+    backgroundColor: "#575757",
+    width: 22,
+     height: 22,
+     borderRadius: 10
+  },
+  checked: {
+    backgroundColor: "#FFF",
+    width: 15,
+     height: 15,
+     borderRadius: 10,
+     left: 3.5,
+     top: 3.5
+  },
+
   button: {
     backgroundColor: "#F3F285",
     width: 342,
@@ -73,10 +108,21 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   text: {
-    color: "#FFF",
     fontSize: 24,
     position: "relative",
     right: 15,
+  },
+  themeText: {
+    fontSize: 20,
+    position: "relative",
+  },
+  themeBlock__item: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: "center",
+    marginHorizontal: 10,
+    gap: 10
   },
   headerAbout: {
     position: "absolute",
@@ -133,15 +179,13 @@ const styles = StyleSheet.create({
     fontWeight: "600"
   },
   themeBlock: {
-    backgroundColor: "#262626",
-    width: 420,
-    height: 41,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',
     position: 'absolute',
-    top: 150
+    top: 200,
+    gap: 30
   },
   themeText: {
     color: "#FFF",
@@ -162,5 +206,6 @@ const styles = StyleSheet.create({
     left: 300,
     fontSize: 15,
     marginVertical: 5
-  }
+  },
+  
 });

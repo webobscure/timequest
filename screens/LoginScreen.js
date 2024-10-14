@@ -2,9 +2,11 @@ import { View, Text, StyleSheet, TextInput, Button, ActivityIndicator } from "re
 import React, {useState} from 'react'
 import { FIREBASE_AUTH } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
+import { useTheme } from "../tools/ThemeProvider";
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
+  const {isDarkTheme, toggleTheme} = useTheme();
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;

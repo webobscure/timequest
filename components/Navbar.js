@@ -8,7 +8,11 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { useTheme } from "../tools/ThemeProvider";
+import { getThemeStyles } from "../theme/themeStyles";
 export default function Navbar() {
+  const { isDarkTheme } = useTheme();
+  const themeStyles = getThemeStyles(isDarkTheme);
   const navigation = useNavigation();
   const handlePress = (event) => {
     switch (event) {
@@ -31,7 +35,7 @@ export default function Navbar() {
   };
   return (
     <>
-      <View style={styles.bottom_panel}>
+      <View style={[styles.bottom_panel, {backgroundColor: themeStyles.navBackground}]}>
         <View style={styles.panel}>
           <View style={styles.panelItem}>
             <TouchableOpacity
@@ -42,7 +46,7 @@ export default function Navbar() {
                 source={require("../assets/home.png")}
                 style={styles.bottom_pannel__image}
               />
-              <Text style={styles.text}>Главная</Text>
+              <Text style={[styles.text, {color: themeStyles.navColor}]}>Главная</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.panelItem}>
@@ -54,7 +58,7 @@ export default function Navbar() {
                 source={require("../assets/event.png")}
                 style={styles.bottom_pannel__image}
               />
-              <Text style={styles.text}>События</Text>
+              <Text style={[styles.text, {color: themeStyles.navColor}]}>События</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.panelItem}>
@@ -66,7 +70,7 @@ export default function Navbar() {
                 source={require("../assets/rating.png")}
                 style={styles.bottom_pannel__image}
               />
-              <Text style={styles.text}>Рейтинг</Text>
+              <Text style={[styles.text, {color: themeStyles.navColor}]}>Рейтинг</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.panelItem}>
@@ -78,7 +82,7 @@ export default function Navbar() {
                 source={require("../assets/save.png")}
                 style={styles.bottom_pannel__image}
               />
-              <Text style={styles.text}>Избранное</Text>
+              <Text style={[styles.text, {color: themeStyles.navColor}]}>Избранное</Text>
             </TouchableOpacity>
           </View>
           <View style={styles.panelItem}>
@@ -90,7 +94,7 @@ export default function Navbar() {
                 source={require("../assets/profile.png")}
                 style={styles.bottom_pannel__image}
               />
-              <Text style={styles.text}>Профиль</Text>
+              <Text style={[styles.text, {color: themeStyles.navColor}]}>Профиль</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -142,4 +146,7 @@ const styles = StyleSheet.create({
     height: 20,
     marginRight: 10,
   },
+  bottom_pannel__image: {
+    color: 'red',
+  }
 });
