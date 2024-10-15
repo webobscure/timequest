@@ -4,7 +4,6 @@ import React from 'react'
 const NavigationScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
-          <Image source={require("../assets/coliseum.png")} style={styles.image} />
           
 
            <View style={styles.navigation}>

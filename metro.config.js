@@ -6,3 +6,4 @@ const deafultConfig = getDefaultConfig(__dirname);
 deafultConfig.resolver.assetExts.push('cjs')
 
 module.exports = deafultConfig;
+

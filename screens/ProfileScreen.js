@@ -8,13 +8,18 @@ import {
   ScrollView,
 } from "react-native";
 import Navbar from "../components/Navbar";
+import { useTheme } from "../tools/ThemeProvider";
+import { getThemeStyles } from "../theme/themeStyles";
 
 export default function ProfileScreen({ navigation }) {
+  const { isDarkTheme } = useTheme();
+  const themeStyles = getThemeStyles(isDarkTheme);
+
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, {backgroundColor: themeStyles.profileContainer}]}>
       <ScrollView style={styles.scrollView}>
         <View style={styles.profile_container}>
-          <View style={styles.upperBlock}>
+          <View style={[styles.upperBlock, {backgroundColor: themeStyles.userBlock}]}>
             <Text style={styles.avatar_text}>Мой профиль</Text>
             <View style={styles.userBlock}>
               <TouchableOpacity>
@@ -170,7 +175,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#000",
   },
   setting: {
     marginTop: 30,
@@ -219,7 +223,6 @@ const styles = StyleSheet.create({
     left: 110,
   },
   upperBlock: {
-    backgroundColor: "#FFF",
     display: "flex",
     flexDirection: "row",
     width: 430,

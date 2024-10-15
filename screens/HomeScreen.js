@@ -14,14 +14,16 @@ import { FIREBASE_AUTH, FIREBASE_DB } from "../firebase";
 import Navbar from "../components/Navbar";
 import { collection, getDocs } from "firebase/firestore";
 import Header from "../components/Header";
+import { useTheme } from "../tools/ThemeProvider";
+import { getThemeStyles } from "../theme/themeStyles";
 
 export default function HomeScreen({ navigation }) {
   const scheme = useColorScheme();
-  const [isDarkTheme, setIsDarkTheme] = useState(scheme === 'dark')
+  const { isDarkTheme } = useTheme();
   const [user, setUser] = useState();
   const [exersice, setExersice] = useState([]);
   const [imageUrls, setImageUrls] = useState([]);
-
+  const themeStyles = getThemeStyles(isDarkTheme);
   // Функция для получения данных из Firestore
   const fetchData = async () => {
     try {
@@ -47,7 +49,7 @@ export default function HomeScreen({ navigation }) {
   return (
     <>
       {/* {user ? ( */}
-      <View style={styles.black_container}>
+      <View style={[styles.black_container, {backgroundColor: themeStyles.backgroundColor}]}>
         <ScrollView style={styles.scrollView}>
           <Header />
           <View style={styles.content_container}>
@@ -79,7 +81,7 @@ export default function HomeScreen({ navigation }) {
               </View>
             </View>
             <View style={styles.bronze_century}>
-              <Text style={styles.century_title}>Бронзовый Век</Text>
+              <Text style={[styles.century_title, {color: themeStyles.color}]}>Бронзовый Век</Text>
               <FlatList
                 data={exersice}
                 keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
@@ -98,7 +100,7 @@ export default function HomeScreen({ navigation }) {
               />
             </View>
             <View style={styles.bronze_century}>
-              <Text style={styles.century_title}>Cеребрянный Век</Text>
+              <Text style={[styles.century_title, {color: themeStyles.color}]}>Cеребрянный Век</Text>
               <FlatList
                 data={exersice}
                 keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
@@ -117,7 +119,7 @@ export default function HomeScreen({ navigation }) {
               />
             </View>
             <View style={styles.bronze_century}>
-              <Text style={styles.century_title}>Золотой Век</Text>
+              <Text style={[styles.century_title, {color: themeStyles.color}]}>Золотой Век</Text>
               <FlatList
                 data={exersice}
                 keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
@@ -153,17 +155,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   black_container: {
-    backgroundColor: "#000",
     width: "100%",
     height: "100%",
     position: "relative",
   },
 
   century_title: {
-    color: "#FFF",
     fontSize: 24,
     fontWeight: "600",
     marginBottom: 10,
+    marginLeft: 10
   },
   content_container: {
     display: "flex",
