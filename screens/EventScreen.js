@@ -1,17 +1,21 @@
 import { Text, View, StyleSheet, Image,TouchableOpacity, ScrollView } from "react-native";
 import Navbar from "../components/Navbar";
 import Header from "../components/Header";
+import { useTheme } from "../tools/ThemeProvider";
+import { getThemeStyles } from "../theme/themeStyles";
 
 export default function EventScreen() {
+  const isDarkTheme = useTheme();
+  const themeStyles = getThemeStyles();
     return (
         <>
-        <View style={styles.black_container}>
+        <View style={[styles.black_container, {backgroundColor: themeStyles.container}]}>
         <Header />
         <View style={styles.eventPage}>
         <Image source={{uri: "https://firebasestorage.googleapis.com/v0/b/timequest-73b3a.appspot.com/o/voucher.png?alt=media&token=258d803d-dcee-446a-9350-5a92b78b3d4d"} } style={styles.voucher}/>
         <View>
            <View>
-           <Text style={styles.century_title}>Загадки и викторины</Text>
+           <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Загадки и викторины</Text>
             <TouchableOpacity>
                 <ScrollView horizontal={true}>
         <Image source={{uri: "https://firebasestorage.googleapis.com/v0/b/timequest-73b3a.appspot.com/o/frank.png?alt=media&token=d37bcbff-da8c-4ba7-b8bb-f3f3a2c30fd2"} } style={styles.contentImage}/>
@@ -20,7 +24,7 @@ export default function EventScreen() {
             </TouchableOpacity>
            </View>
             <View style={styles.wonder}>
-           <Text style={styles.century_title}>Историческая карта</Text>
+           <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Историческая карта</Text>
            <Image source={{uri: "https://firebasestorage.googleapis.com/v0/b/timequest-73b3a.appspot.com/o/sevenWonders.png?alt=media&token=0cba7c97-1f35-4ff6-bd60-b9d3326f17e2"} } style={styles.sevenWonders}/>
 
             </View>

@@ -3,13 +3,16 @@ import React, {useState} from 'react'
 import { FIREBASE_AUTH } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useTheme } from "../tools/ThemeProvider";
+import { getThemeStyles } from "../theme/themeStyles";
+
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
-  const {isDarkTheme, toggleTheme} = useTheme();
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const auth = FIREBASE_AUTH;
+  const {isDarkTheme} = useTheme();
+  const themeStyles = getThemeStyles(isDarkTheme);
   const signIn = async () => {
     
     setLoading(true);
@@ -30,30 +33,30 @@ const LoginScreen = ({navigation}) => {
 
 
   return (
-    <View style={styles.reg_conatiner}>
-      <Text style={styles.reg_text}>Вход</Text>
+    <View style={[styles.reg_conatiner, {backgroundColor: themeStyles.backgroundColor}]}>
+      <Text style={[styles.reg_text, {color: themeStyles.textColor}]}>Вход</Text>
       <View style={styles.reg_block}>
         
-        <View style={styles.reg_input}>
-        <Text style={styles.input_label} >Email</Text>
+        <View style={[styles.reg_input, {backgroundColor: themeStyles.input}]}>
+        <Text style={[styles.input_label, {color: themeStyles.inputLabel}]} >Email</Text>
         <TextInput value={email} style={styles.text_input} autoCapitalize="none" onChangeText={(text) => setEmail(text)} />
         </View>
-        <View style={styles.reg_input}>
-        <Text style={styles.input_label} >Пароль</Text>
+        <View style={[styles.reg_input, {backgroundColor: themeStyles.input}]}>
+        <Text style={[styles.input_label, {color: themeStyles.inputLabel}]} >Пароль</Text>
         <TextInput value={password}
             onChangeText={(text) => setPassword(text)}
             secureTextEntry={true}
             autoCapitalize="none" style={styles.text_input} />
         <View style={styles.forgotPassword_container}>
-          <Text style={styles.gray_text}>Восстановить пароль</Text>
+          <Text style={[styles.gray_text, {color: themeStyles.inputLabel}]}>Восстановить пароль</Text>
         </View>
         </View>
         {loading ? <ActivityIndicator size="large" color="#0000ff" /> : <View style={styles.reg_button}>
       <Button onPress={signIn} title="Войти" color={"#000"}/>
       </View>}
       <View style={styles.signUp_container}>
-        <Text style={styles.gray_text}>У вас нет аккаунта?</Text>
-        <Button onPress={() => navigation.navigate('Sign up page')} title="Зарегистрироваться" style={styles.reg_Button} color={"#FFF"}/>
+        <Text style={[styles.gray_text, {color: themeStyles.inputLabel}]}>У вас нет аккаунта?</Text>
+        <Button onPress={() => navigation.navigate('Sign up page')} title="Зарегистрироваться " style={styles.reg_Button} color={themeStyles.inputLabel}/>
       </View>
       </View>
      
@@ -84,7 +87,6 @@ const styles = StyleSheet.create({
     reg_input: {
         width: 342,
         height: 40,
-        backgroundColor: "#FFF",
         borderRadius: 20,
         marginTop: 47,
     },
@@ -101,7 +103,7 @@ const styles = StyleSheet.create({
         backgroundColor: "#F3F285",
         borderRadius: 43,
         marginTop: 85,
-        justifyContent: "center"
+        justifyContent: "center",
     },
     forgotPassword_container: {
       display: 'flex',
@@ -111,8 +113,7 @@ const styles = StyleSheet.create({
       top: 20,
     },
     gray_text: {
-      color: '#FFF',
-      fontWeight: "200"
+      fontWeight: "400"
     },
     reg_Button: {
       color: '#FFF',
@@ -128,7 +129,7 @@ const styles = StyleSheet.create({
     text_input: {
       position: 'relative',
       left: 10,
-      bottom: 5
+      bottom: 5,
     }
 })
 
