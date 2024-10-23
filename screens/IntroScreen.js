@@ -32,7 +32,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: theme.bgYellow(1),
     flex: 1,
     
   },
@@ -56,7 +55,7 @@ const styles = StyleSheet.create({
     borderRadius: 20
   },
   startImage: {
-    width: 430,
+    width: "100%",
     position: 'absolute',
     bottom: 0
   }

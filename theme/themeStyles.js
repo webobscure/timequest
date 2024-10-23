@@ -14,12 +14,13 @@ const lightTheme = {
     statsText: "#0D0D0D",
     searchButton: "#F5F5F5",
     league: "#000",
+    leagueOddBlock: "#FFF",
     leagueBlock: "#F5F5F5",
     hr: "#CDCDCD",
   };  
   
   const darkTheme = {
-    backgroundColor: '#333333', 
+    backgroundColor: '#000', 
     textColor: '#FFFFFF',
     navColor: '#B4B4B4',
     navBackground: '#222222',
@@ -33,6 +34,7 @@ const lightTheme = {
     statsText: "#FFFFFF",
     searchButton: "#242321",
     league: "#FFF",
+    leagueOddBlock: "#000",
     leagueBlock: "#262626",
     hr: "#262626",
   };

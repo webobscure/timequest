@@ -10,6 +10,12 @@ import {
 } from "react-native";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
+import Home from '../assets/home.svg';
+import Event from '../assets/event.svg';
+import Profile from '../assets/profile.svg';
+import Save from '../assets/save.svg';
+import Tournament from '../assets/tour.svg';
+
 export default function Navbar() {
   const { isDarkTheme } = useTheme();
   const themeStyles = getThemeStyles(isDarkTheme);
@@ -42,8 +48,7 @@ export default function Navbar() {
               style={styles.button}
               onPress={() => handlePress("home")}
             >
-              <Image
-                source={require("../assets/home.png")}
+              <Home
                 style={styles.bottom_pannel__image}
               />
               <Text style={[styles.text, {color: themeStyles.navColor}]}>Главная</Text>
@@ -54,8 +59,7 @@ export default function Navbar() {
               style={styles.button}
               onPress={() => handlePress("event")}
             >
-              <Image
-                source={require("../assets/event.png")}
+              <Event
                 style={styles.bottom_pannel__image}
               />
               <Text style={[styles.text, {color: themeStyles.navColor}]}>События</Text>
@@ -66,8 +70,7 @@ export default function Navbar() {
               style={styles.button}
               onPress={() => handlePress("rat")}
             >
-              <Image
-                source={require("../assets/rating.png")}
+              <Tournament
                 style={styles.bottom_pannel__image}
               />
               <Text style={[styles.text, {color: themeStyles.navColor}]}>Рейтинг</Text>
@@ -78,8 +81,7 @@ export default function Navbar() {
               style={styles.button}
               onPress={() => handlePress("fav")}
             >
-              <Image
-                source={require("../assets/save.png")}
+              <Save
                 style={styles.bottom_pannel__image}
               />
               <Text style={[styles.text, {color: themeStyles.navColor}]}>Избранное</Text>
@@ -90,9 +92,10 @@ export default function Navbar() {
               style={styles.button}
               onPress={() => handlePress("profile")}
             >
-              <Image
-                source={require("../assets/profile.png")}
+              <Profile
                 style={styles.bottom_pannel__image}
+                stroke="#B4B4B4"
+                strokeWidth={2}
               />
               <Text style={[styles.text, {color: themeStyles.navColor}]}>Профиль</Text>
             </TouchableOpacity>
@@ -147,6 +150,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   bottom_pannel__image: {
-    color: 'red',
+    color: '#B4B4B4',
+    
   }
 });

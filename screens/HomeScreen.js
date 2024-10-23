@@ -81,7 +81,7 @@ export default function HomeScreen({ navigation }) {
               </View>
             </View>
             <View style={styles.bronze_century}>
-              <Text style={[styles.century_title, {color: themeStyles.color}]}>Бронзовый Век</Text>
+              <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Бронзовый Век</Text>
               <FlatList
                 data={exersice}
                 keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
@@ -100,7 +100,7 @@ export default function HomeScreen({ navigation }) {
               />
             </View>
             <View style={styles.bronze_century}>
-              <Text style={[styles.century_title, {color: themeStyles.color}]}>Cеребрянный Век</Text>
+              <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Cеребрянный Век</Text>
               <FlatList
                 data={exersice}
                 keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
@@ -119,7 +119,7 @@ export default function HomeScreen({ navigation }) {
               />
             </View>
             <View style={styles.bronze_century}>
-              <Text style={[styles.century_title, {color: themeStyles.color}]}>Золотой Век</Text>
+              <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Золотой Век</Text>
               <FlatList
                 data={exersice}
                 keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента

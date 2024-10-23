@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   TextInput,
@@ -17,6 +17,20 @@ export default function ThemeScreen({ navigation }) {
   const [isSystemThemeChecked, setSystemThemeChecked] = useState(false);
   const { isDarkTheme, setDarkTheme, setLightTheme, setSystemTheme } = useTheme();
 
+  const checkTheme = () => {
+    if (isDarkTheme === true) {
+      setDarkThemeChecked(true);  // Устанавливаем в true
+      setLightThemeChecked(false); // Устанавливаем в false, если нужно
+    } else {
+      setLightThemeChecked(true);  // Устанавливаем в true
+      setDarkThemeChecked(false);   // Устанавливаем в false, если нужно
+    }
+  };
+
+  useEffect(() => {
+    checkTheme();
+  },[isDarkTheme])
+
   const themeStyles = getThemeStyles(isDarkTheme);
 
   return (
@@ -28,13 +42,13 @@ export default function ThemeScreen({ navigation }) {
             style={styles.backButton}
           />
         </TouchableOpacity>
-        <Text style={[styles.text, {color: themeStyles.color}]}>Настройки приложения</Text>
+        <Text style={[styles.text, {color: themeStyles.textColor}]}>Настройки приложения</Text>
       </View>
       
       <View style={styles.themeBlock}>
        <View style={styles.themeBlock__item}>
        <Image source={require("../assets/lightTheme.png")} />
-        <Text style={[styles.themeText, { color: themeStyles.color}]} >Светлая</Text>
+        <Text style={[styles.themeText, { color: themeStyles.textColor}]} >Светлая</Text>
         <TouchableOpacity style={styles.checkbox} onPress={() => {
           setLightThemeChecked(true);
           setDarkThemeChecked(false);
@@ -46,7 +60,7 @@ export default function ThemeScreen({ navigation }) {
        </View>
        <View style={styles.themeBlock__item}>
        <Image source={require("../assets/darkTheme.png")} />
-        <Text style={[styles.themeText, { color: themeStyles.color}]} >Тёмная</Text>
+        <Text style={[styles.themeText, { color: themeStyles.textColor}]} >Тёмная</Text>
         <TouchableOpacity style={styles.checkbox} onPress={() => {
           setDarkThemeChecked(true);
           setLightThemeChecked(false);
@@ -59,7 +73,7 @@ export default function ThemeScreen({ navigation }) {
        </View>
        <View style={styles.themeBlock__item}>
        <Image source={require("../assets/systemTheme.png")} />
-        <Text style={[styles.themeText, { color: themeStyles.color}]} >Как в системе</Text>
+        <Text style={[styles.themeText, { color: themeStyles.textColor}]} >Как в системе</Text>
         <TouchableOpacity style={styles.checkbox} onPress={() => {
           setSystemThemeChecked(!isSystemThemeChecked);
           setLightThemeChecked(false);
