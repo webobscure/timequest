@@ -16,11 +16,28 @@ export default function ProfileScreen({ navigation }) {
   const themeStyles = getThemeStyles(isDarkTheme);
 
   return (
-    <View style={[styles.container, {backgroundColor: themeStyles.profileContainer}]}>
+    <View
+      style={[
+        styles.container,
+        { backgroundColor: themeStyles.profileContainer },
+      ]}
+    >
       <ScrollView style={styles.scrollView}>
         <View style={styles.profile_container}>
-          <View style={[styles.upperBlock, {backgroundColor: themeStyles.textColor}]}>
-            <Text style={[styles.avatar_text, {color: themeStyles.profileContainer}]}>Мой профиль</Text>
+          <View
+            style={[
+              styles.upperBlock,
+              { backgroundColor: themeStyles.textColor },
+            ]}
+          >
+            <Text
+              style={[
+                styles.avatar_text,
+                { color: themeStyles.profileContainer },
+              ]}
+            >
+              Мой профиль
+            </Text>
             <View style={styles.userBlock}>
               <TouchableOpacity>
                 <Image
@@ -32,7 +49,11 @@ export default function ProfileScreen({ navigation }) {
                   style={styles.changer}
                 />
               </TouchableOpacity>
-              <Text style={[styles.avatar_nick, {color: themeStyles.profileNick}]}>Артём</Text>
+              <Text
+                style={[styles.avatar_nick, { color: themeStyles.profileNick }]}
+              >
+                Артём
+              </Text>
               <View>
                 <TouchableOpacity style={styles.logoutButton}>
                   <Image source={require("../assets/logout.png")} />
@@ -41,118 +62,225 @@ export default function ProfileScreen({ navigation }) {
               </View>
             </View>
             <View style={styles.subBlock}>
-              <Text style={{ fontWeight: "700", fontSize: 23, color: themeStyles.profileNick }}>Подписка:</Text>
+              <Text
+                style={{
+                  fontWeight: "700",
+                  fontSize: 23,
+                  color: themeStyles.profileNick,
+                }}
+              >
+                Подписка:
+              </Text>
               <View style={{ left: 40, gap: 10 }}>
-                <Text style={{ fontSize: 15, color: themeStyles.subText }}>Следующее списание будет:</Text>
-                <Text style={{ fontSize: 15, fontWeight: "600", color: themeStyles.subText }}>
+                <Text style={{ fontSize: 15, color: themeStyles.subText }}>
+                  Следующее списание будет:
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "600",
+                    color: themeStyles.subText,
+                  }}
+                >
                   28.12.2024 г.
                 </Text>
               </View>
             </View>
           </View>
           <View style={styles.statsBlock}>
-            <View style={[styles.statsBlock__item, { backgroundColor: themeStyles.statsItem}]}>
+            <View
+              style={[
+                styles.statsBlock__item,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
+            >
               <Image
                 source={require("../assets/streak.png")}
                 style={{ width: 43, height: 43 }}
               />
               <View style={styles.statsBlock__el}>
-                <Text style={[styles.statsText__item, {color: themeStyles.statsText}]}>Рекорд дней:</Text>
                 <Text
-                  style={{ color: "#E36F51", fontSize: 20, fontWeight: "500", bottom: 3 }}
+                  style={[
+                    styles.statsText__item,
+                    { color: themeStyles.statsText },
+                  ]}
+                >
+                  Рекорд дней:
+                </Text>
+                <Text
+                  style={{
+                    color: "#E36F51",
+                    fontSize: 20,
+                    fontWeight: "500",
+                    bottom: 3,
+                  }}
                 >
                   3
                 </Text>
               </View>
             </View>
-            <View style={[styles.statsBlock__item, { backgroundColor: themeStyles.statsItem}]}>
+            <View
+              style={[
+                styles.statsBlock__item,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
+            >
               <Image
                 source={require("../assets/league.png")}
                 style={{ width: 43, height: 43 }}
               />
               <View style={styles.statsBlock__el}>
-                <Text style={[styles.statsText__item, {color: themeStyles.statsText}]}>Деревянная лига</Text>
-               
+                <Text
+                  style={[
+                    styles.statsText__item,
+                    { color: themeStyles.statsText },
+                  ]}
+                >
+                  Деревянная лига
+                </Text>
               </View>
             </View>
-            <View style={[styles.statsBlock__item, { backgroundColor: themeStyles.statsItem}]}>
-              <Text style={{color: "#E36F51", fontSize: 35, fontWeight: "700"}}>10 000</Text>
+            <View
+              style={[
+                styles.statsBlock__item,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
+            >
+              <Text
+                style={{ color: "#E36F51", fontSize: 35, fontWeight: "700" }}
+              >
+                10 000
+              </Text>
               <View style={styles.statsBlock__el}>
-                <Text style={[styles.statsText__item, {color: themeStyles.statsText}]}>Очки опыта</Text>
-               
+                <Text
+                  style={[
+                    styles.statsText__item,
+                    { color: themeStyles.statsText },
+                  ]}
+                >
+                  Очки опыта
+                </Text>
               </View>
             </View>
-            <View style={[styles.statsBlock__item, { backgroundColor: themeStyles.statsItem}]}>
-              <Image
-                source={require("../assets/achievs.png")}
-                style={{ width: 124 }}
-              />
-              <View style={styles.statsBlock__el}>
-                <Text style={[styles.statsText__item, {color: themeStyles.statsText}]}>Достижения</Text>
-               
-              </View>
+            <View
+              style={[
+                styles.statsBlock__item,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
+            >
+              <TouchableOpacity style={{display: 'flex',justifyContent: 'center',alignItems: 'center'}} onPress={() => navigation.navigate("Achive page")}>
+                <Image
+                  source={require("../assets/achievs.png")}
+                  style={{ width: 124 }}
+                />
+                <View style={styles.statsBlock__el}>
+                  <Text
+                    style={[
+                      styles.statsText__item,
+                      { color: themeStyles.statsText },
+                    ]}
+                  >
+                    Достижения
+                  </Text>
+                </View>
+              </TouchableOpacity>
             </View>
           </View>
           <View style={styles.setting}>
             <TouchableOpacity
-              style={[styles.profile_button, {backgroundColor: themeStyles.statsItem}]}
+              style={[
+                styles.profile_button,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
               onPress={() =>
                 navigation.navigate("Subscription page", {
                   screen: "Subscription page",
                 })
               }
             >
-              <Text style={[styles.profile_text, {color: themeStyles.statsText}]}>Управление подпиской </Text>
+              <Text
+                style={[styles.profile_text, { color: themeStyles.statsText }]}
+              >
+                Управление подпиской{" "}
+              </Text>
               <Image
                 source={require("../assets/arrow.png")}
                 style={styles.arrow_img}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.profile_button, {backgroundColor: themeStyles.statsItem}]}
+              style={[
+                styles.profile_button,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
               onPress={() =>
                 navigation.navigate("Settings page", {
                   screen: "Settings page",
                 })
               }
             >
-              <Text style={[styles.profile_text, {color: themeStyles.statsText}]}>Настройки профиля</Text>
+              <Text
+                style={[styles.profile_text, { color: themeStyles.statsText }]}
+              >
+                Настройки профиля
+              </Text>
               <Image
                 source={require("../assets/arrow.png")}
                 style={styles.arrow_img}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.profile_button, {backgroundColor: themeStyles.statsItem}]}
+              style={[
+                styles.profile_button,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
               onPress={() =>
                 navigation.navigate("Support page", { screen: "Support page" })
               }
             >
-              <Text style={[styles.profile_text, {color: themeStyles.statsText}]}>Написать в поддержку</Text>
+              <Text
+                style={[styles.profile_text, { color: themeStyles.statsText }]}
+              >
+                Написать в поддержку
+              </Text>
               <Image
                 source={require("../assets/arrow.png")}
                 style={styles.arrow_img}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.profile_button, {backgroundColor: themeStyles.statsItem}]}
+              style={[
+                styles.profile_button,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
               onPress={() =>
                 navigation.navigate("About page", { screen: "About page" })
               }
             >
-              <Text style={[styles.profile_text, {color: themeStyles.statsText}]}>О приложении</Text>
+              <Text
+                style={[styles.profile_text, { color: themeStyles.statsText }]}
+              >
+                О приложении
+              </Text>
               <Image
                 source={require("../assets/arrow.png")}
                 style={styles.arrow_img}
               />
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.profile_button, {backgroundColor: themeStyles.statsItem}]}
+              style={[
+                styles.profile_button,
+                { backgroundColor: themeStyles.statsItem },
+              ]}
               onPress={() =>
                 navigation.navigate("Theme page", { screen: "Theme page" })
               }
             >
-              <Text style={[styles.profile_text, {color: themeStyles.statsText}]}>Настройка приложения</Text>
+              <Text
+                style={[styles.profile_text, { color: themeStyles.statsText }]}
+              >
+                Настройка приложения
+              </Text>
               <Image
                 source={require("../assets/arrow.png")}
                 style={styles.arrow_img}
