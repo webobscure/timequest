@@ -2,6 +2,7 @@ import { React, useState } from "react";
 import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
 import Navbar from "../components/Navbar";
+import BackButton from "../components/BackButton";
 export default function SettingScreen({navigation}) {
   const [name, setName] = useState('')
   const [age, setAge] = useState('')
@@ -13,9 +14,7 @@ export default function SettingScreen({navigation}) {
     <>
      <View style={styles.container}>
             <View style={styles.headerAbout}>
-            <TouchableOpacity onPress={() => navigation.navigate('Profile page')}>
-                <Image source={require("../assets/backButton.png")} style={styles.backButton}/>
-            </TouchableOpacity>
+            <BackButton />
             <Text style={styles.text}>Настройка профиля</Text>
             </View>
            <View style={styles.inputs_container}>

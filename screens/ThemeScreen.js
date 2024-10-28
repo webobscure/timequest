@@ -10,6 +10,7 @@ import {
 import Navbar from "../components/Navbar";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
+import BackButton from "../components/BackButton";
 
 export default function ThemeScreen({ navigation }) {
   const [isLightThemeChecked, setLightThemeChecked] = useState(false);
@@ -36,12 +37,7 @@ export default function ThemeScreen({ navigation }) {
   return (
     <View style={[styles.container, {backgroundColor: themeStyles.backgroundColor}]}>
       <View style={styles.headerAbout}>
-        <TouchableOpacity onPress={() => navigation.navigate("Profile page")}>
-          <Image
-            source={require("../assets/backButton.png")}
-            style={styles.backButton}
-          />
-        </TouchableOpacity>
+        <BackButton />
         <Text style={[styles.text, {color: themeStyles.textColor}]}>Настройки приложения</Text>
       </View>
       

@@ -8,17 +8,13 @@ import {
   TouchableOpacity,
 } from "react-native";
 import Navbar from "../components/Navbar";
+import BackButton from "../components/BackButton";
 
 export default function PaymentScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.headerAbout}>
-        <TouchableOpacity onPress={() => navigation.navigate("Subscription page")}>
-          <Image
-            source={require("../assets/backButton.png")}
-            style={styles.backButton}
-          />
-        </TouchableOpacity>
+        <BackButton />
         <Text style={styles.text}>Способ оплаты</Text>
       </View>
       <View style={styles.paymentBlock}>

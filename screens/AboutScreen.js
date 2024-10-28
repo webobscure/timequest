@@ -1,14 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Navbar from '../components/Navbar';
+import BackButton from '../components/BackButton';
 
 export default function AboutScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headerAbout}>
-            <TouchableOpacity  onPress={() => navigation.navigate("Profile page")}>
-                <Image source={require("../assets/backButton.png")} style={styles.backButton}/>
-            </TouchableOpacity>
+            <BackButton />
             <Text style={styles.text}>О приложении</Text>
             </View>
             <View style={styles.aboutPage} >

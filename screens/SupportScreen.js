@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Navbar from '../components/Navbar';
 import { getDatabase, ref, set } from "firebase/database";
+import BackButton from '../components/BackButton';
 
 export default function SupportScreen({ navigation }) {
     const [name, setName] = useState('')
@@ -22,9 +23,7 @@ export default function SupportScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headerAbout}>
-            <TouchableOpacity onPress={() => navigation.navigate('Profile page')}>
-                <Image source={require("../assets/backButton.png")} style={styles.backButton}/>
-            </TouchableOpacity>
+           <BackButton />
             <Text style={styles.text}>Поддержка</Text>
             </View>
            <View style={styles.inputs_container}>
@@ -118,7 +117,6 @@ const styles = StyleSheet.create({
     },
     backButton: {
         position: 'relative',
-        right: 120
     },
     inputs_container: {
         display: 'flex',
