@@ -37,7 +37,7 @@ export default function ThemeScreen({ navigation }) {
   return (
     <View style={[styles.container, {backgroundColor: themeStyles.backgroundColor}]}>
       <View style={styles.headerAbout}>
-        <BackButton />
+        <BackButton style={styles.backButton}/>
         <Text style={[styles.text, {color: themeStyles.textColor}]}>Настройки приложения</Text>
       </View>
       

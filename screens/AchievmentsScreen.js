@@ -54,7 +54,7 @@ export default function AchievmentsScreen({ navigation }) {
       ]}
     >
       <View style={styles.headerAbout}>
-       <BackButton />
+       <BackButton style={styles.backButton}/>
         <Text style={[styles.text, { color: themeStyles.textColor }]}>
           Достижения
         </Text>
@@ -110,6 +110,7 @@ const styles = StyleSheet.create({
   backButton: {
     position: "relative",
     right: 90,
+    top: 300
 
   },
   inputs_container: {

@@ -7,7 +7,7 @@ export default function AboutScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headerAbout}>
-            <BackButton />
+            <BackButton style={styles.backButton} />
             <Text style={styles.text}>О приложении</Text>
             </View>
             <View style={styles.aboutPage} >

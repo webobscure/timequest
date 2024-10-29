@@ -23,7 +23,7 @@ export default function SupportScreen({ navigation }) {
     return (
         <View style={styles.container}>
             <View style={styles.headerAbout}>
-           <BackButton />
+           <BackButton  style={styles.backButton} />
             <Text style={styles.text}>Поддержка</Text>
             </View>
            <View style={styles.inputs_container}>
@@ -117,6 +117,7 @@ const styles = StyleSheet.create({
     },
     backButton: {
         position: 'relative',
+        right: 90
     },
     inputs_container: {
         display: 'flex',

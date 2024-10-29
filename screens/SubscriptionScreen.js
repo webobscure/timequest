@@ -14,8 +14,8 @@ export default function SubscriptionScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.headerAbout}>
-        <BackButton  />
-        <Text style={styles.text}>Управление подпиской</Text>
+        <BackButton  style={styles.backButton}/>
+        <Text style={[styles.text]}>Управление подпиской</Text>
       </View>
       <View>
         <View style={styles.subBlock}>

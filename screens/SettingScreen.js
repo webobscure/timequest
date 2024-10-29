@@ -14,7 +14,7 @@ export default function SettingScreen({navigation}) {
     <>
      <View style={styles.container}>
             <View style={styles.headerAbout}>
-            <BackButton />
+            <BackButton style={styles.backButton}/>
             <Text style={styles.text}>Настройка профиля</Text>
             </View>
            <View style={styles.inputs_container}>

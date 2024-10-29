@@ -14,7 +14,7 @@ export default function PaymentScreen({ navigation }) {
   return (
     <View style={styles.container}>
       <View style={styles.headerAbout}>
-        <BackButton />
+        <BackButton style={styles.backButton} />
         <Text style={styles.text}>Способ оплаты</Text>
       </View>
       <View style={styles.paymentBlock}>
