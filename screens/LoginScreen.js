@@ -4,7 +4,7 @@ import { FIREBASE_AUTH } from "../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
-
+import axios from 'axios';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState("");
@@ -16,19 +16,19 @@ const LoginScreen = ({navigation}) => {
   const signIn = async () => {
     
     setLoading(true);
-    // try {
-      
-    //   const response =  await signInWithEmailAndPassword(auth,email,password);
-    //   console.log(response)
-    //   navigation.navigate('Home page')
-    // } catch(err) {
-    //   console.error(err);
-    //   alert('Registration failed:' + err.message)
-    // } finally {
-    //   setLoading(false);
-    // }
+    try {
+      data = {
+       email, password
+      }
+      const response =  axios.post('http://localhost:3000/api/auth', data);
+      if(response.ok) {
+        navigation.navigate('Home page')
+      }
+    } catch(err) {
+      console.error(err);
+      alert('Registration failed:' + err.message)
+    } 
     
-    navigation.navigate('Home page')
   }
 
 
@@ -36,7 +36,7 @@ const LoginScreen = ({navigation}) => {
     <View style={[styles.reg_conatiner, {backgroundColor: themeStyles.backgroundColor}]}>
       <Text style={[styles.reg_text, {color: themeStyles.textColor}]}>Вход</Text>
       <View style={styles.reg_block}>
-        
+      
         <View style={[styles.reg_input, {backgroundColor: themeStyles.input}]}>
         <Text style={[styles.input_label, {color: themeStyles.inputLabel}]} >Email</Text>
         <TextInput value={email} style={styles.text_input} autoCapitalize="none" onChangeText={(text) => setEmail(text)} />

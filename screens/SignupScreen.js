@@ -12,9 +12,11 @@ import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
 
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import axios from "axios";
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
+  const [nickname , setNickname] = useState("");
   const [password, setPassword] = useState("");
   const [passwordLoop, setPasswordLoop] = useState("");
   const [loading, setLoading] = useState(false);
@@ -23,22 +25,19 @@ const SignupScreen = ({ navigation }) => {
   const themeStyles = getThemeStyles(isDarkTheme);
 
   const signUp = async () => {
-    setLoading(true);
+    setLoading(false);
     try {
-      const response = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(response);
-      alert("Check your emails");
-      navigation.navigate("Login page");
-    } catch (err) {
+      data = {
+       nickname,email, password
+      }
+      const response =  axios.post('http://localhost:3000/api/signup', data);
+      if(response.ok) {
+        navigation.navigate('Home page')
+      }
+    } catch(err) {
       console.error(err);
-      alert("Registration failed:" + err.message);
-    } finally {
-      setLoading(false);
-    }
+      alert('Registration failed:' + err.message)
+    } 
   };
 
   return (
@@ -50,6 +49,18 @@ const SignupScreen = ({ navigation }) => {
     >
       <Text style={[styles.reg_text, {color: themeStyles.textColor}]}>Создайте аккаунт</Text>
       <View style={styles.reg_block}>
+      <View
+          style={[styles.reg_input, { backgroundColor: themeStyles.input }]}
+        >
+          <Text style={[styles.input_label, {color: themeStyles.inputLabel}]}>Имя</Text>
+          <TextInput
+            value={nickname}
+            autoCapitalize="none"
+            onChangeText={(text) => setNickname(text)}
+            placeholder="Alex"
+            style={styles.text_input}
+          />
+        </View>
         <View
           style={[styles.reg_input, { backgroundColor: themeStyles.input }]}
         >
