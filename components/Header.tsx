@@ -1,4 +1,3 @@
-import { React } from "react";
 import { View, Image, Button, StyleSheet, Text, TouchableOpacity } from "react-native";
 import avatar from "../assets/avatar.png";
 import { useTheme } from "../tools/ThemeProvider";
@@ -11,7 +10,7 @@ export default function Header() {
     <>
       <View style={styles.header_panel}>
         <View style={styles.userBlock}>
-          <Image source={avatar} style={styles.image_avatar} />
+          <Image source={{uri: avatar}} style={styles.image_avatar} />
           <Text style={[styles.text, { color: themeStyles.statsText }]}>
             Артём
           </Text>
@@ -19,13 +18,11 @@ export default function Header() {
         <View style={styles.heartBlock}>
           <Image
             source={require("../assets/fire.png")}
-            style={styles.fire_img}
           />
           <Text style={[styles.text, { color: themeStyles.statsText }]}>0</Text>
         </View>
         <Image
           source={require("../assets/heart.png")}
-          style={styles.heart_img}
         />
         <TouchableOpacity style={[styles.searchButton, {backgroundColor: themeStyles.searchButton}]}>
           <Image source={require("../assets/search.png")} />

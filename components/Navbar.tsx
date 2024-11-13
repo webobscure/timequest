@@ -1,5 +1,4 @@
 import { useNavigation } from "@react-navigation/native";
-import { React } from "react";
 import {
   View,
   Image,
@@ -8,18 +7,28 @@ import {
   TouchableOpacity,
   Text,
 } from "react-native";
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
-import Home from '../assets/home.svg';
+import Home from '../assets/home.svg'
 import Event from '../assets/event.svg';
 import Profile from '../assets/profile.svg';
 import Save from '../assets/save.svg';
 import Tournament from '../assets/tour.svg';
 
+
+type RootStackParamList = {
+  'Home page': undefined;
+  'Event page': undefined;
+  'Favorite page': undefined;
+  'Profile page': undefined;
+  'Tournament page': undefined;
+};
+
 export default function Navbar() {
   const { isDarkTheme } = useTheme();
   const themeStyles = getThemeStyles(isDarkTheme);
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParamList>>();
   const handlePress = (event) => {
     switch (event) {
       case "home":
