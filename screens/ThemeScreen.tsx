@@ -107,6 +107,14 @@ const styles = StyleSheet.create({
      left: 3.5,
      top: 3.5
   },
+  unchecked: {
+    backgroundColor: "none",
+    width: 15,
+     height: 15,
+     borderRadius: 10,
+     left: 3.5,
+     top: 3.5
+  },
 
   button: {
     backgroundColor: "#F3F285",

@@ -27,7 +27,7 @@ const SignupScreen = ({ navigation }) => {
   const signUp = async () => {
     setLoading(false);
     try {
-      data = {
+      const data = {
        nickname,email, password
       }
       const response =  axios.post('http://localhost:3000/api/signup', data);
