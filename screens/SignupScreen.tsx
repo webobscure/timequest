@@ -6,15 +6,19 @@ import {
   Button,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { FIREBASE_AUTH } from "../firebase";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
+import { Context } from "../context/StoreContext";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../navigation/types";
 
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import axios from "axios";
+type SignupScreenProps = {
+  navigation: NativeStackNavigationProp<RootStackParamList, "Sign up page">;
+};
 
-const SignupScreen = ({ navigation }) => {
+const SignupScreen: FC<SignupScreenProps> = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [nickname , setNickname] = useState("");
   const [password, setPassword] = useState("");
@@ -23,21 +27,26 @@ const SignupScreen = ({ navigation }) => {
   const auth = FIREBASE_AUTH;
   const { isDarkTheme } = useTheme();
   const themeStyles = getThemeStyles(isDarkTheme);
+  const {store} = useContext(Context)
 
   const signUp = async () => {
-    setLoading(false);
+    if (password !== passwordLoop) {
+      alert("Пароли не совпадают!");
+      return;
+    }
+
+    setLoading(true);
     try {
-      const data = {
-       nickname,email, password
-      }
-      const response =  axios.post('http://localhost:3000/api/signup', data);
-      if(response.ok) {
-        navigation.navigate('Home page')
-      }
-    } catch(err) {
-      console.error(err);
-      alert('Registration failed:' + err.message)
-    } 
+      const response = await store.signup(email, password, nickname);
+      console.log("Регистрация успешна:", response);
+      alert("Регистрация успешна!");
+    } catch (err: any) {
+      console.error("Ошибка регистрации:", err.response?.data?.message || err.message);
+      alert("Ошибка регистрации: " + (err.response?.data?.message || err.message));
+    } finally {
+      setLoading(false);
+    }
+    navigation.navigate("Login page");
   };
 
   return (

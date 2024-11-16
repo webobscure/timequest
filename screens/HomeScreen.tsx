@@ -8,21 +8,24 @@ import {
   FlatList,
   useColorScheme,
 } from "react-native";
-import React, { Component, useEffect, useState } from "react";
-import { onAuthStateChanged } from "firebase/auth";
+import React, { Component, useContext, useEffect, useState } from "react";
 import { FIREBASE_AUTH, FIREBASE_DB } from "../firebase";
 import Navbar from "../components/Navbar";
 import { collection, getDocs } from "firebase/firestore";
 import Header from "../components/Header";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
+import { Context } from "../context/StoreContext";
+import { observer } from "mobx-react-lite";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { IUser } from "../models/IUser";
 
-export default function HomeScreen({ navigation }) {
+const HomeScreen = ({ navigation }) => {
+  const { store } = useContext(Context)
   const scheme = useColorScheme();
   const { isDarkTheme } = useTheme();
-  const [user, setUser] = useState();
+  const [user, setUser] = useState<IUser | null>(null);
   const [exersice, setExersice] = useState([]);
-  const [imageUrls, setImageUrls] = useState([]);
   const themeStyles = getThemeStyles(isDarkTheme);
   // Функция для получения данных из Firestore
   const fetchData = async () => {
@@ -32,123 +35,141 @@ export default function HomeScreen({ navigation }) {
         id: doc.id,
         ...doc.data(),
       }));
-      console.log("Данные: ", data);
+      // console.log("Данные: ", data);
       setExersice(data);
     } catch (error) {
       console.error("Ошибка получения данных: ", error);
     }
   };
   useEffect(() => {
-    // onAuthStateChanged(FIREBASE_AUTH, (user) => {
-    //   setUser(user);
-    // });
-    fetchData();
-  }, [scheme]);
+    const checkAuth = async () => {
+      const token = await AsyncStorage.getItem("token");
+      if (token) {
+        store.checkUser(); // Proceed to check user
+      }
+    console.log("Token",token)
+    console.log("Store:",store);
 
-  
+    };
+ 
+    const loadData = async () => {
+      await checkAuth();
+      fetchData();
+    };
+ 
+    loadData();
+  }, []); 
+
   return (
     <>
-      {/* {user ? ( */}
-      <View style={[styles.black_container, {backgroundColor: themeStyles.backgroundColor}]}>
-        <ScrollView style={styles.scrollView}>
-          <Header />
-          <View style={styles.content_container}>
-            <View style={styles.universe_block}>
-              <Image
-                source={require("../assets/universe.png")}
-                style={styles.universe_image}
-              />
-              <View style={styles.exBlock}>
-                <Text style={{ color: "#FFF", fontSize: 18 }}>
-                  Астрономия, алхимия и медицина
-                </Text>
-                <Text style={{ color: "#CFCFCF", width: 350 }}>
-                  Три древние дисциплины, которые играли важную роль в развитии
-                  научных знаний....
-                </Text>
-              </View>
-
-              <View style={styles.actionBlock}>
-                <TouchableOpacity style={styles.openButton}>
-                  <Text style={{ color: "#000" }}>Подробнее</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.saveBlock}>
+      {store.isAuth ? (
+        <View>
+          <View style={[styles.black_container, { backgroundColor: themeStyles.backgroundColor }]}>
+            <ScrollView style={styles.scrollView}>
+              <Header />
+              <View style={styles.content_container}>
+                <View style={styles.universe_block}>
                   <Image
-                    source={require("../assets/save.png")}
-                    style={styles.saveIcon}
+                    source={require("../assets/universe.png")}
+                    style={styles.universe_image}
                   />
-                </TouchableOpacity>
+                  <View style={styles.exBlock}>
+                    <Text style={{ color: "#FFF", fontSize: 18 }}>
+                      Астрономия, алхимия и медицина
+                    </Text>
+                    <Text style={{ color: "#CFCFCF", width: 350 }}>
+                      Три древние дисциплины, которые играли важную роль в развитии
+                      научных знаний....
+                    </Text>
+                  </View>
+
+                  <View style={styles.actionBlock}>
+                    <TouchableOpacity style={styles.openButton}>
+                      <Text style={{ color: "#000" }}>Подробнее</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.saveBlock}>
+                      <Image
+                        source={require("../assets/save.png")}
+                        style={styles.saveIcon}
+                      />
+                    </TouchableOpacity>
+                  </View>
+                </View>
+                <View style={styles.bronze_century}>
+                  <Text style={[styles.century_title, { color: themeStyles.textColor }]}>Бронзовый Век</Text>
+                  <FlatList
+                    data={exersice}
+                    keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
+                    renderItem={({ item }) => (
+                      <TouchableOpacity>
+                        <Image
+                          source={{ uri: item.background }} // Используем URL из Firebase
+                          style={styles.contentImage} // Стили для изображения
+                        />
+                      </TouchableOpacity>
+                    )}
+                    horizontal={true} // Горизонтальная прокрутка
+                    showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
+                    style={styles.renderBlock} // Стили для контейнера
+                    contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
+                  />
+                </View>
+                <View style={styles.bronze_century}>
+                  <Text style={[styles.century_title, { color: themeStyles.textColor }]}>Cеребрянный Век</Text>
+                  <FlatList
+                    data={exersice}
+                    keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
+                    renderItem={({ item }) => (
+                      <TouchableOpacity>
+                        <Image
+                          source={{ uri: item.background }} // Используем URL из Firebase
+                          style={styles.contentImage} // Стили для изображения
+                        />
+                      </TouchableOpacity>
+                    )}
+                    horizontal={true} // Горизонтальная прокрутка
+                    showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
+                    style={styles.renderBlock} // Стили для контейнера
+                    contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
+                  />
+                </View>
+                <View style={styles.bronze_century}>
+                  <Text style={[styles.century_title, { color: themeStyles.textColor }]}>Золотой Век</Text>
+                  <FlatList
+                    data={exersice}
+                    keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
+                    renderItem={({ item }) => (
+                      <TouchableOpacity>
+                        <Image
+                          source={{ uri: item.background }} // Используем URL из Firebase
+                          style={styles.contentImage} // Стили для изображения
+                        />
+                      </TouchableOpacity>
+                    )}
+                    horizontal={true} // Горизонтальная прокрутка
+                    showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
+                    style={styles.renderBlock} // Стили для контейнера
+                    contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
+                  />
+                </View>
               </View>
-            </View>
-            <View style={styles.bronze_century}>
-              <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Бронзовый Век</Text>
-              <FlatList
-                data={exersice}
-                keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
-                renderItem={({ item }) => (
-                  <TouchableOpacity>
-                    <Image
-                      source={{ uri: item.background }} // Используем URL из Firebase
-                      style={styles.contentImage} // Стили для изображения
-                    />
-                  </TouchableOpacity>
-                )}
-                horizontal={true} // Горизонтальная прокрутка
-                showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
-                style={styles.renderBlock} // Стили для контейнера
-                contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
-              />
-            </View>
-            <View style={styles.bronze_century}>
-              <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Cеребрянный Век</Text>
-              <FlatList
-                data={exersice}
-                keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
-                renderItem={({ item }) => (
-                  <TouchableOpacity>
-                    <Image
-                      source={{ uri: item.background }} // Используем URL из Firebase
-                      style={styles.contentImage} // Стили для изображения
-                    />
-                  </TouchableOpacity>
-                )}
-                horizontal={true} // Горизонтальная прокрутка
-                showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
-                style={styles.renderBlock} // Стили для контейнера
-                contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
-              />
-            </View>
-            <View style={styles.bronze_century}>
-              <Text style={[styles.century_title, {color: themeStyles.textColor}]}>Золотой Век</Text>
-              <FlatList
-                data={exersice}
-                keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
-                renderItem={({ item }) => (
-                  <TouchableOpacity>
-                    <Image
-                      source={{ uri: item.background }} // Используем URL из Firebase
-                      style={styles.contentImage} // Стили для изображения
-                    />
-                  </TouchableOpacity>
-                )}
-                horizontal={true} // Горизонтальная прокрутка
-                showsHorizontalScrollIndicator={false} // Убираем индикатор прокрутки
-                style={styles.renderBlock} // Стили для контейнера
-                contentContainerStyle={{ paddingHorizontal: 10 }} // Отступы по бокам
-              />
-            </View>
+            </ScrollView>
           </View>
-        </ScrollView>
+
+          <Navbar />
+        </View>
+      ) : (
+        <View>
+        <Text>Some text that should be wrapped inside Text</Text>
       </View>
+      )}
 
-      <Navbar />
 
-      {/* ) : (
-        <Text>Hello</Text>
-      )} */}
+
     </>
   );
 }
+
 
 const styles = StyleSheet.create({
   scrollView: {
@@ -243,7 +264,7 @@ const styles = StyleSheet.create({
   },
   exBlock: {
     position: "relative",
-    display: "block",
+    display: "flex",
     bottom: 120,
     gap: 15,
     left: 10,
@@ -266,3 +287,5 @@ const styles = StyleSheet.create({
     flexGrow: 0, // Убираем автоматическое расширение
   },
 });
+
+export default observer(HomeScreen);

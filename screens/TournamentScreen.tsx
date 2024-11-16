@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   TextInput,
@@ -10,9 +10,11 @@ import {
   FlatList,
 } from "react-native";
 import Navbar from "../components/Navbar";
-import { getDatabase, ref, set } from "firebase/database";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
+import { IUser } from "../models/IUser";
+import UserService from "../services/UserService";
+
 
 const data = [
   { id: "1", name: "Артём", score: 1000 },
@@ -27,13 +29,24 @@ const data = [
   { id: "10", name: "Артём", score: 100 },
 ];
 
+
 export default function SupportScreen({ navigation }) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [theme, setTheme] = useState("");
-  const [message, setMessage] = useState("");
   const { isDarkTheme } = useTheme();
+  const [users, setUsers] = useState<IUser[] | null>([]);
   const themeStyles = getThemeStyles(isDarkTheme);
+  useEffect(() => {
+    async function getUsers() {
+      try {
+        const response = await UserService.fetchUsers();
+        setUsers(response.data)
+      } catch (error) {
+        console.log(error.message)
+      }
+    }
+
+    getUsers();
+  },[])
+ 
   const renderItem = ({ item, index }) => {
     return (
       <View>
