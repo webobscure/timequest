@@ -32,6 +32,7 @@ const SignupScreen: FC<SignupScreenProps> = ({ navigation }) => {
   const signUp = async () => {
     if (password !== passwordLoop) {
       alert("Пароли не совпадают!");
+      
       return;
     }
 

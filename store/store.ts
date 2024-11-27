@@ -28,7 +28,7 @@ export default class Store {
 async login(email: string, password: string) {
     try {
         const response = await AuthService.login(email, password);
-        console.log('Response:', response);
+        // console.log('Response:', response);
 
         // Ожидаем завершения записи в AsyncStorage
         await AsyncStorage.setItem('token', response.data.accessToken);

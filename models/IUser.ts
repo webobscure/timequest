@@ -3,4 +3,6 @@ export interface IUser {
     nickname: string;
     verifiedEmail: boolean;
     id: string;
+    dayStreak: string;
+    points: string;
 }

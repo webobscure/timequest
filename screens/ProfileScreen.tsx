@@ -135,7 +135,7 @@ export default function ProfileScreen({ navigation }) {
                         bottom: 3,
                       }}
                     >
-                      3
+                      {store.user.dayStreak} 
                     </Text>
                   </View>
                 </View>
@@ -169,7 +169,7 @@ export default function ProfileScreen({ navigation }) {
                   <Text
                     style={{ color: "#E36F51", fontSize: 35, fontWeight: "700" }}
                   >
-                    10 000
+                    {store.user.points}
                   </Text>
                   <View style={styles.statsBlock__el}>
                     <Text
