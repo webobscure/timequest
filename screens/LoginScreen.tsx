@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, TextInput, Button, ActivityIndicator } from "react-native";
 import React, { useContext, useState } from 'react'
-import { FIREBASE_AUTH } from "../firebase";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
 import { Context } from "../context/StoreContext";

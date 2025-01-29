@@ -25,17 +25,19 @@ export default class Store {
         this.isLoading = bool;
     }
    // login
-async login(email: string, password: string) {
+   async login(email: string, password: string) {
     try {
         const response = await AuthService.login(email, password);
-        // console.log('Response:', response);
 
-        // Ожидаем завершения записи в AsyncStorage
+        // Очищаем старый токен перед записью нового
+        await AsyncStorage.removeItem('token');
         await AsyncStorage.setItem('token', response.data.accessToken);
+
         this.setAuth(true);
         this.setUser(response.data.user);
+        console.log('Logged in as:', response.data.user);
     } catch (error) {
-        console.log('Error:', error.response?.data?.message);
+        console.log('Login error:', error.response?.data?.message);
     }
 }
 
@@ -43,11 +45,10 @@ async login(email: string, password: string) {
 async logout() {
     try {
         const response = await AuthService.logout();
-        
-        // Удаляем токен из AsyncStorage
         await AsyncStorage.removeItem('token');
         this.setAuth(false);
-        this.setUser({} as IUser);
+        this.setUser(null);
+        console.log('After logout:', { isAuth: this.isAuth, user: this.user });
     } catch (error) {
         console.log(error.response?.data?.message);
     }
@@ -71,7 +72,7 @@ async logout() {
         try {
             const response = await axios.get<AuthResponse>(`${API_URL}/refresh`, { withCredentials: true });
             // Assuming the response includes user and token data
-            console.log("Response:",response)
+            // console.log("Response from async checkUser():",response)
             if (response.data) {
                 AsyncStorage.setItem('token', response.data.accessToken); // Set the token
                 this.setAuth(true); // Update authentication state
