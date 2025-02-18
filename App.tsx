@@ -1,7 +1,7 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator, NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LogBox } from "react-native";
-import { createContext, FC, useContext, useEffect } from "react";
+import {  FC, useContext, useEffect } from "react";
 import IntroScreen from "./screens/IntroScreen";
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
@@ -18,6 +18,7 @@ import SubscriptionScreen from "./screens/SubscriptionScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import ThemeScreen from "./screens/ThemeScreen";
 import AchievmentsScreen from "./screens/AchievmentsScreen";
+import ExerciseScreen from './screens/ExerciseScreen';
 import { ThemeProvider } from "./tools/ThemeProvider";
 import { Context } from "./context/StoreContext";
 import { RootStackParamList } from "./navigation/types";
@@ -136,6 +137,11 @@ const App: FC = () => {
               name="Achive page"
               options={{ headerShown: false }}
               component={AchievmentsScreen}
+            />
+             <Stack.Screen
+              name="Exercise page"
+              options={{ headerShown: false }}
+              component={ExerciseScreen}
             />
           </Stack.Navigator>
         </NavigationContainer>

@@ -16,6 +16,8 @@ export type RootStackParamList = {
     "Payment page": undefined;
     "Theme page": undefined;
     "Achive page": undefined;
+    "Exercise page": undefined;
+
 
 
     // Add other screens here

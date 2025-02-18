@@ -101,7 +101,7 @@ const HomeScreen = ({ navigation }) => {
                     data={exersice}
                     keyExtractor={(item) => item.id} // Уникальный ключ для каждого элемента
                     renderItem={({ item }) => (
-                      <TouchableOpacity>
+                      <TouchableOpacity onPress={() => navigation.navigate("Exercise page")}>
                         <Image
                           source={{ uri: item.background }} // Используем URL из Firebase
                           style={styles.contentImage} // Стили для изображения
