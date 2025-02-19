@@ -3,14 +3,23 @@ import {
   StyleSheet,
   View,
   ScrollView,
+  Image,
+  Dimensions,
+  Text
 } from "react-native";
 import Markdown from 'react-native-markdown-display';
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import BackButton from "../components/BackButton";
+import SaveButton from "../components/SaveButton";
 
-export default function ExerciseScreen({  }) {
+const { width } = Dimensions.get('window'); // Получаем ширину экрана
+const { height } = Dimensions.get('window'); // Получаем ширину экрана
+
+
+export default function ExerciseScreen() {
   const { isDarkTheme } = useTheme();
   const themeStyles = getThemeStyles(isDarkTheme);
   const [markdown, setMarkdown] = useState('');
@@ -28,24 +37,28 @@ export default function ExerciseScreen({  }) {
     fetchMarkdown();
   }, []);
 
-
   return (
-
-     <View
-      style={[
-        styles.container,
-        { backgroundColor: themeStyles.profileContainer },
-      ]}
-    >
-       <ScrollView>
-      <Markdown>{markdown}</Markdown>
-    </ScrollView>
-       
-       <Navbar />
-
+  <>
+   
+    <View style={[styles.container, { backgroundColor: themeStyles.profileContainer }]}>
+    <View style={styles.headerAbout}>
+              <BackButton  style={styles.backButton}/>
+              <SaveButton  style={styles.backButton}/>
+            </View>
+      <ScrollView style={styles.ex_container}>
+        <Image source={require('../assets/contentTwo.png')} style={styles.ex_image} />
+        <View style={styles.ex_markdown}>
+        <Markdown  style={{
+                   text: {
+                   color: themeStyles.textColor,
+                   fontWeight: 500
+                   }
+                 }}>{markdown}</Markdown>
+        </View>
+      </ScrollView>
+      <Navbar />
     </View>
-
-
+  </>
   );
 }
 
@@ -55,83 +68,35 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#000",
+    paddingHorizontal: 10, // Отступы по бокам
   },
-  button: {
-    backgroundColor: "#F3F285",
-    width: 342,
-    height: 45,
-    borderRadius: 10,
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+  ex_container: {
+    flexGrow: 1, // Позволяет ScrollView занимать доступное пространство
+    width: '100%', // Занимает всю доступную ширину
   },
-  text: {
-    color: "#FFF",
-    fontSize: 28,
-    fontWeight: "700",
-    position: "relative",
-    right: 15,
+  ex_image: {
+    marginTop: 60,
+    width: width, // Задаем ширину изображения как 90% от ширины экрана
+    height: height * 0.2, // Автоматическая высота
   },
+  ex_markdown: {
+    width: '100%', // Занимает всю доступную ширину
+    paddingHorizontal: 5, // Отступы по бокам для текста
+  },
+ 
   headerAbout: {
-    position: "absolute",
-    top: 60,
     display: "flex",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent:"center",
+    alignItems: 'center',
+    top: 60,
+    left: height * 0.0,
+     gap: width * 0.7
+
   },
   backButton: {
     position: "relative",
-    right: 90,
-    top: 300
-
-  },
-  inputs_container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 20,
-    maxWidth: 342,
-    
-  },
-  input_text: {
-    backgroundColor: "#FFF",
-    width: 342,
-    height: 40,
-    borderRadius: 10,
-    position: "relative",
-  },
-  input_text_message: {
-    backgroundColor: "#FFF",
-    width: 342,
-    height: 137,
-    borderRadius: 10,
-    position: "relative",
-  },
-  textInput: {
-    color: "#FFF",
-    fontSize: 18,
-    marginBottom: 13,
-  },
-  achievment_container: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 20,
-    marginVertical: 10,
-  },
-  achievment_container__item: {
-    width: 177,
-    height: 166,
-    borderRadius: 10,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  achieve__text: {
-    position: "absolute",
-    bottom: 5,
+    right: height * 0.155,
+    bottom: 1
   },
 });

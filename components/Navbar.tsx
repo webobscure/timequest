@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  Dimensions
 } from "react-native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useTheme } from "../tools/ThemeProvider";
@@ -15,7 +16,8 @@ import Event from '../assets/event.svg';
 import Profile from '../assets/profile.svg';
 import Save from '../assets/save.svg';
 import Tournament from '../assets/tour.svg';
-
+const { width } = Dimensions.get('window'); // Получаем ширину экрана
+const { height } = Dimensions.get('window'); // Получаем ширину экрана
 
 type RootStackParamList = {
   'Home page': undefined;
@@ -119,9 +121,8 @@ const styles = StyleSheet.create({
   bottom_panel: {
     backgroundColor: "#222",
     position: "absolute",
-    width: 450,
-    height: 86,
-    bottom: 0,
+    height: height * 0.1,
+    bottom: "0%",
     borderRadius: 15,
     display: "flex",
     justifyContent: "center",
@@ -135,6 +136,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 20,
     gap: 5,
+    width: width,
+
   },
   panelItem: {
     display: "flex",

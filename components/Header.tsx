@@ -1,11 +1,12 @@
-import { View, Image, Button, StyleSheet, Text, TouchableOpacity } from "react-native";
-import avatar from "../assets/avatar.png";
+import { View, Image, Button, StyleSheet, Text, TouchableOpacity, Dimensions } from "react-native";
 import { useTheme } from "../tools/ThemeProvider";
 import { getThemeStyles } from "../theme/themeStyles";
-import { IUser } from "../models/IUser";
-import { useState, useEffect, useContext } from "react";
+import {  useEffect, useContext } from "react";
 import { Context } from "../context/StoreContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+
+const { width } = Dimensions.get('window'); // Получаем ширину экрана
+const { height } = Dimensions.get('window'); // Получаем ширину экрана
 
 export default function Header() {
   const {store} = useContext(Context);
@@ -57,8 +58,8 @@ export default function Header() {
 const styles = StyleSheet.create({
   header_panel: {
     width: "100%",
-    height: 56,
-    position: "absolute",
+    height:  height * 0.025,
+    position: "relative",
     top: 60,
     display: "flex",
     flexDirection: "row",

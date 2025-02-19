@@ -17,6 +17,7 @@ const lightTheme = {
     leagueOddBlock: "#FFF",
     leagueBlock: "#F5F5F5",
     hr: "#CDCDCD",
+    actionButton: "#F5F5F5"
   };  
   
   const darkTheme = {
@@ -37,6 +38,7 @@ const lightTheme = {
     leagueOddBlock: "#000",
     leagueBlock: "#262626",
     hr: "#262626",
+    actionButton: "#353333"
   };
   
   export const getThemeStyles = (isDarkTheme) => {
